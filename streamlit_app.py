@@ -1,11 +1,12 @@
 import streamlit as st
 from dataclasses import dataclass
-
+import os 
 from llama_index.tools.duckduckgo import DuckDuckGoSearchToolSpec
 from llama_index.core.agent import ReActAgent
 from llama_index.core import Settings 
 from llama_index.llms.gemini import Gemini 
-Settings.llm = Gemini()
+google_api_key = os.environ['GOOGLE_API_KEY']
+Settings.llm = Gemini(api_key=google_api_key)
 tool_spec = DuckDuckGoSearchToolSpec()
 
 agent =ReActAgent.from_tools(tool_spec.to_tool_list())
